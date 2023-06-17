@@ -1,6 +1,6 @@
-import pygame  ##bliblioteca de jogos
-import random  ##geração de numeros aleatorios
-import os      ##integra os codigos com os arquivos do computador
+import pygame  # bliblioteca de jogos
+import random  # geração de numeros aleatorios
+import os      # integra os codigos com os arquivos do computador
 
 from pygame.font import Font
 
@@ -22,3 +22,30 @@ IMAGENS_PASSARO = [
 pygame.font.init()
 
 FONTE_PONTOS: Font = pygame.font.SysFont('arial', 50)
+
+
+class passaro:
+    IMGS = IMAGENS_PASSARO
+
+    # ANIMAÇÕES DA ROTAÇÃO
+    ROTACAO_MAXIMA = 25
+    VELOCIDADE_ROTACAO = 20
+    TEMPO_ANIMACAO = 5
+
+    # ATRIBUTOS DO PASSARO
+
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+        self.angulo = 0
+        self.velocidade = 0
+        self.altura = self.y
+        self.tempo = 0  #quando o passaro se movimentar, será definido em quanto tempo ele vai demorar pra voltar ao movimento inicial após pular
+        self.imagem = IMGS[0]  # saber qual imagem do passaro esta sendo usada, a primeira, segunda ou terceira
+
+
+class cano:
+    pass
+
+class chao:
+    pass
