@@ -41,7 +41,8 @@ class passaro:
         self.velocidade = 0
         self.altura = self.y
         self.tempo = 0  #quando o passaro se movimentar, será definido em quanto tempo ele vai demorar pra voltar ao movimento inicial após pular
-        self.imagem = IMGS[0]  # saber qual imagem do passaro esta sendo usada, a primeira, segunda ou terceira
+        self.contagemImagem = 0
+        self.imagem = self.IMGS[0]  # saber qual imagem do passaro esta sendo usada, a primeira, segunda ou terceira
 
     def pular(self):
         self.velocidade = -10.5
@@ -69,6 +70,38 @@ class passaro:
                 self.angulo = self.ROTACAO_MAXIMA
         elif self.angulo > -90:
                 self.angulo <= self.VELOCIDADE_ROTACAO
+
+    def desenhar(self, tela):
+        #definir qual imagem do passaro vai usar
+        self.contagemImagem += 1
+        if self.contagemImagem < self.TEMPO_ANIMACAO:
+            self.imagem = self.IMGS[0]
+        elif self.contagemImagem < self.TEMPO_ANIMACAO * 2:
+            self.imagem = self.IMGS[1]
+        elif self.contagemImagem < self.TEMPO_ANIMACAO * 3:
+            self.imagem = self.IMGS[2]
+        elif self.contagemImagem < self.TEMPO_ANIMACAO * 4:
+            self.imagem = self.IMGS[1]
+        elif self.contagemImagem < self.TEMPO_ANIMACAO * 4 + 1:
+            self.imagem = self.IMGS[0]
+            self.imagem = self.IMGS[1]
+
+
+        #Se o passaro estiver caindo eu n vou bater asas
+
+        if self.angulo <= -80:
+            self.imagem = self.IMGS[1]
+            self.contagemImagem = self.TEMPO_ANIMACAO*2
+
+        #Desenhar imagem
+        imagem_rotacionada = pygame.transform.rotate(self.imagem, self.angulo)
+        pos_centro_imagem = self.imagem.get_rect(topleft=(self.x, self.y)).center
+        retangulo = imagem_rotacionada.get_rect(center=pos_centro_imagem)
+        tela.blit(imagem_rotacionada, retangulo.topleft)
+
+    def get_mask(self):
+        pygame.mask.from_surface(self.imagem)
+
 
 class cano:
     pass
