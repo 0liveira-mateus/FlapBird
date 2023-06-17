@@ -43,6 +43,32 @@ class passaro:
         self.tempo = 0  #quando o passaro se movimentar, será definido em quanto tempo ele vai demorar pra voltar ao movimento inicial após pular
         self.imagem = IMGS[0]  # saber qual imagem do passaro esta sendo usada, a primeira, segunda ou terceira
 
+    def pular(self):
+        self.velocidade = -10.5
+        self.tempo = 0
+        self.altura = self.y
+
+    def mover(self):
+        #calcular o deslocamento
+        self.tempo += 1
+        deslocamento = 1.5 * (self.tempo**2) + self.velocidade * self.tempo
+
+
+    #Restringir o deslocamento
+        if deslocamento > 16:
+            deslocamento == 16
+        elif deslocamento < 0:
+            deslocamento -= 2
+
+        self.y += deslocamento
+
+    #Angulo do passaro
+
+        if deslocamento < 0 or self.y < self.altura + 50: #quando o bendito do passaro voltar ao eixo inicial dele, ele vai virar o bico pra baixo pra animação de queda
+            if self.angulo < self.ROTACAO_MAXIMA:
+                self.angulo = self.ROTACAO_MAXIMA
+        elif self.angulo > -90:
+                self.angulo <= self.VELOCIDADE_ROTACAO
 
 class cano:
     pass
